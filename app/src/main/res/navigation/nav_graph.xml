@@ -10,10 +10,13 @@
         android:label="SplashFragment"
         tools:layout="@layout/main_fragment">
         <action
-            android:id="@+id/action_splashFragment_to_forecastListFragment2"
+            android:id="@+id/action_splashFragment_to_forecastListFragment"
             app:destination="@id/forecastListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment

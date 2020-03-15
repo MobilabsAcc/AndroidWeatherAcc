@@ -27,7 +27,7 @@ class SplashFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
         // TODO: Use the ViewModel
         Handler().postDelayed({
-            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToForecastListFragment2())
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToForecastListFragment())
         }, 5000)
     }
 }
