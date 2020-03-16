@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.ForecastListFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/btnStartService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello"
+        android:text="Start services"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
