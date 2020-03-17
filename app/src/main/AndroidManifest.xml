@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".fundamentals.JobDoneReceiver"
+            android:exported="false" />
+
         <activity android:name=".fundamentals.SecondaryActivity" />
 
         <service

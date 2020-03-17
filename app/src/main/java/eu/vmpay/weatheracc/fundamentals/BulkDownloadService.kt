@@ -25,12 +25,14 @@ class BulkDownloadService : IntentService("BulkDownloadService") {
     }
 
     /**
-     * Handle action Foo in the provided background thread with the provided
+     * Handle action fetch weather in the provided background thread with the provided
      * parameters.
      */
     private fun fetchWeather(city: String) {
         Log.d("BulkDownloadService", "Start fetchWeather for $city on ${Looper.myLooper()}")
         Thread.sleep(3000)
         Log.d("BulkDownloadService", "End fetchWeather for $city on ${Looper.myLooper()}")
+        val intent = Intent(BROADCAST_ACTION).putExtra(CITY_NAME_KEY, city)
+        sendBroadcast(intent)
     }
 }

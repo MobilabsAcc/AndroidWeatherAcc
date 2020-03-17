@@ -1,6 +1,7 @@
 package eu.vmpay.weatheracc.ui.fragment
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import eu.vmpay.weatheracc.R
 import eu.vmpay.weatheracc.fundamentals.ACTION_BULK_DOWNLOAD
+import eu.vmpay.weatheracc.fundamentals.BROADCAST_ACTION
 import eu.vmpay.weatheracc.fundamentals.BulkDownloadService
 import eu.vmpay.weatheracc.fundamentals.CITY_NAME_KEY
 import eu.vmpay.weatheracc.fundamentals.EXTRA_PARAM_CITY
+import eu.vmpay.weatheracc.fundamentals.JobDoneReceiver
 import eu.vmpay.weatheracc.fundamentals.OpenWeatherModels
 import eu.vmpay.weatheracc.fundamentals.SECONDARY_RESULT_CODE
 import eu.vmpay.weatheracc.fundamentals.SecondaryActivity
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.forecast_list_fragment.view.*
 class ForecastListFragment : Fragment() {
 
     private lateinit var viewModel: ForecastListViewModel
+    private val receiver = JobDoneReceiver()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,6 +53,16 @@ class ForecastListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ForecastListViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onResume() {
+        super.onResume()
+        context?.registerReceiver(receiver, IntentFilter(BROADCAST_ACTION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        context?.unregisterReceiver(receiver)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
