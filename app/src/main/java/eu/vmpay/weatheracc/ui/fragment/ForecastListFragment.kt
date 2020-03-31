@@ -5,23 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import eu.vmpay.weatheracc.R
+import eu.vmpay.weatheracc.di.Injector
 import eu.vmpay.weatheracc.viewModels.ForecastListViewModel
+import kotlinx.android.synthetic.main.forecast_list_fragment.view.*
 
 class ForecastListFragment : Fragment() {
-
-    private lateinit var viewModel: ForecastListViewModel
+    private val factory by lazy { Injector.provideFactory(context!!) }
+    private val viewModel by viewModels<ForecastListViewModel> { factory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.forecast_list_fragment, container, false)
+        return inflater.inflate(R.layout.forecast_list_fragment, container, false).apply {
+            viewModel.weatherList.observe(viewLifecycleOwner, Observer {
+                textView.text = it.toString()
+            })
+        }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ForecastListViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
