@@ -1,33 +1,35 @@
 package eu.vmpay.weatheracc.ui.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import eu.vmpay.weatheracc.R
+import eu.vmpay.weatheracc.di.Injector
 import eu.vmpay.weatheracc.viewModels.SplashViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashFragment : Fragment() {
-
-    private lateinit var viewModel: SplashViewModel
+    private val factory by lazy { Injector.provideFactory(context!!) }
+    private val viewModel by viewModels<SplashViewModel> { factory }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
-        // TODO: Use the ViewModel
-        Handler().postDelayed({
+        lifecycleScope.launch {
+            delay(2500)
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToForecastListFragment())
-        }, 5000)
+        }
     }
 }
