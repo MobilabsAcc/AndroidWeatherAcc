@@ -1,7 +1,7 @@
 package eu.vmpay.weatheracc.viewModels
 
 import androidx.lifecycle.ViewModel
+import eu.vmpay.weatheracc.repository.Repository
 
-class SplashViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class SplashViewModel(repository: Repository) : ViewModel() {
 }
