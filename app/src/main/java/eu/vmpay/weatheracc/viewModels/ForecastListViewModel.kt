@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import eu.vmpay.weatheracc.models.WeatherForecast
 import eu.vmpay.weatheracc.repository.Repository
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class ForecastListViewModel(repository: Repository) : ViewModel() {
+class ForecastListViewModel @Inject constructor(repository: Repository) : ViewModel() {
 
     private val tag = "ForecastListViewModel"
 
@@ -35,4 +32,5 @@ class ForecastListViewModel(repository: Repository) : ViewModel() {
                 }
                 .launchIn(viewModelScope)
     }
+
 }

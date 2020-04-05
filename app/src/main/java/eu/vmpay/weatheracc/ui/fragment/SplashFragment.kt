@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.android.support.DaggerFragment
 import eu.vmpay.weatheracc.R
-import eu.vmpay.weatheracc.di.Injector
 import eu.vmpay.weatheracc.viewModels.SplashViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashFragment : Fragment() {
-    private val factory by lazy { Injector.provideFactory(context!!) }
+class SplashFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private val viewModel by viewModels<SplashViewModel> { factory }
 
     override fun onCreateView(
