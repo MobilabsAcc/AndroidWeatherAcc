@@ -11,7 +11,7 @@ data class WeatherForecast(
         @Embedded
         @SerializedName("coord") val coord: Coord,
         @SerializedName("weather") val weather: List<Weather>,
-        @SerializedName("base") val base: String,
+        @SerializedName("base") val base: String?,
         @Embedded
         @SerializedName("main") val main: Main,
         @SerializedName("visibility") val visibility: Int,
@@ -64,4 +64,16 @@ data class Coord(
 
 data class Clouds(
         @SerializedName("all") val all: Int
+)
+
+data class WeatherCityListResponse(
+        @SerializedName("cnt") val count: Int,
+        @SerializedName("list") val list: List<WeatherForecast>
+)
+
+data class FindCityWeatherResponse(
+        @SerializedName("message") val message: String,
+        @SerializedName("cod") val cod: Int,
+        @SerializedName("count") val count: Int,
+        @SerializedName("list") val list: List<WeatherForecast>
 )

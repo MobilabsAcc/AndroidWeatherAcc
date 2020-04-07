@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import eu.vmpay.weatheracc.models.WeatherForecast
 import eu.vmpay.weatheracc.repository.Repository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class ForecastListViewModel @Inject constructor(repository: Repository) : ViewModel() {
@@ -16,7 +20,7 @@ class ForecastListViewModel @Inject constructor(repository: Repository) : ViewMo
     val weatherList = MutableLiveData<List<WeatherForecast>>()
 
     init {
-        repository.getWeatherList()
+        repository.getWeatherListFlow()
                 .onStart {
                     Log.d(tag, "Flow starting")
                 }
