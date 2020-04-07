@@ -1,5 +1,7 @@
 package eu.vmpay.weatheracc.repository
 
+import eu.vmpay.weatheracc.models.Units
+import eu.vmpay.weatheracc.models.WeatherForecast
 import eu.vmpay.weatheracc.repository.local.WeatherForecastDao
 import eu.vmpay.weatheracc.repository.remote.OpenWeatherService
 
@@ -12,10 +14,18 @@ class Repository(
 
     suspend fun getWeatherList() = weatherForecastDao.getAll()
 
-    suspend fun fetchWeatherByCityIdList(cityIdList: List<Long>) =
-            openWeatherService.getWeatherByCityIdList(
-                    cityIdList.fold("", { acc: String, cityId: Long ->
-                        "$acc$cityId,"
-                    })
-            ).also { weatherForecastDao.insert(it.list) }
+    suspend fun fetchWeatherByCityIdList(
+            cityIdList: List<Long>,
+            units: Units = Units.METRIC
+    ) = openWeatherService.getWeatherByCityIdList(
+            cityIdList.fold("", { acc: String, cityId: Long -> "$acc$cityId," }),
+            units.name.toLowerCase()
+    ).also { weatherForecastDao.insert(it.list) }
+
+    suspend fun findCityByName(
+            cityName: String,
+            units: Units = Units.METRIC
+    ) = openWeatherService.findCityWeatherByName(cityName, units.name.toLowerCase())
+
+    suspend fun storeCity(weatherForecast: WeatherForecast) = weatherForecastDao.insert(weatherForecast)
 }

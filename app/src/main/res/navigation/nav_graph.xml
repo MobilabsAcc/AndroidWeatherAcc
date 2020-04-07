@@ -23,6 +23,15 @@
         android:id="@+id/forecastListFragment"
         android:name="eu.vmpay.weatheracc.ui.fragment.ForecastListFragment"
         android:label="forecast_list_fragment"
-        tools:layout="@layout/forecast_list_fragment" />
+        tools:layout="@layout/forecast_list_fragment">
+        <action
+            android:id="@+id/action_forecastListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="eu.vmpay.weatheracc.ui.fragment.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/search_fragment" />
 
 </navigation>

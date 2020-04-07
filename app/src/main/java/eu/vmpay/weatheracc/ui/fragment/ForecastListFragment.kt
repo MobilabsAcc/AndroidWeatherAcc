@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import eu.vmpay.weatheracc.R
 import eu.vmpay.weatheracc.adapters.CitiesAdapter
+import eu.vmpay.weatheracc.models.Units
 import eu.vmpay.weatheracc.viewModels.ForecastListViewModel
 import kotlinx.android.synthetic.main.forecast_list_fragment.view.*
 import javax.inject.Inject
@@ -29,14 +31,28 @@ class ForecastListFragment : DaggerFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.forecast_list_fragment, container, false).apply {
-            rootView.rvCity.adapter = citiesAdapter
-            viewModel.weatherList.observe(viewLifecycleOwner, Observer {
-                citiesAdapter.submitList(it)
-            })
+            textSwitcher.setOnClickListener {
+                viewModel.updateUnits()
+            }
+            rvCity.adapter = citiesAdapter
+            floatingActionButton.setOnClickListener {
+                findNavController().navigate(
+                        ForecastListFragmentDirections.actionForecastListFragmentToSearchFragment()
+                )
+            }
+
+            with(viewModel) {
+                weatherList.observe(viewLifecycleOwner, Observer {
+                    citiesAdapter.submitList(it)
+                })
+                units.observe(viewLifecycleOwner, Observer {
+                    textSwitcher.setText(getString(if (it == Units.METRIC) R.string.units_metric else R.string.units_imperial))
+                })
+            }
         }
     }
 }

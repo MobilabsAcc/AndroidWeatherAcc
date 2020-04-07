@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">WeatherAcc</string>
+    <string name="app_name" translatable="false">WeatherAcc</string>
     <string name="landing_text">Hello Weather</string>
     <string name="welcome_to">Welcome to</string>
-    <string name="weather_app">WEATHER APP</string>
+    <string name="weather_app" translatable="false">WEATHER APP</string>
+    <string name="units_metric" translatable="false"><b>°C! /</b> °F</string>
+    <string name="units_imperial" translatable="false">°C <b>/ °F!</b></string>
 </resources>
