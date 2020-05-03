@@ -1,5 +1,6 @@
 package eu.vmpay.weatheracc.ui.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +36,7 @@ class ForecastListFragment : DaggerFragment() {
             savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.forecast_list_fragment, container, false).apply {
-            textSwitcher.setOnClickListener {
+            unitsOverlay.setOnClickListener {
                 viewModel.updateUnits()
             }
             rvCity.adapter = citiesAdapter
@@ -50,7 +51,8 @@ class ForecastListFragment : DaggerFragment() {
                     citiesAdapter.submitList(it)
                 })
                 units.observe(viewLifecycleOwner, Observer {
-                    textSwitcher.setText(getString(if (it == Units.METRIC) R.string.units_metric else R.string.units_imperial))
+                    tvC.setTypeface(null, if (it == Units.IMPERIAL) Typeface.NORMAL else Typeface.BOLD)
+                    tvF.setTypeface(null, if (it == Units.METRIC) Typeface.NORMAL else Typeface.BOLD)
                 })
             }
         }
