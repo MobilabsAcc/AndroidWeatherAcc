@@ -2,4 +2,6 @@
 <resources>
     <string name="landing_text">Cześć Pogodo</string>
     <string name="welcome_to">Witaj w</string>
+    <string name="empty_list">Lista jest pusta</string>
+    <string name="city_name">Miasto</string>
 </resources>

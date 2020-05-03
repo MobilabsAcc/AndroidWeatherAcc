@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +33,15 @@ class SearchFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.search_fragment, container, false)
                 .apply {
-                    btnConfirm.setOnClickListener { viewModel.searchCity(etSearch.text.toString()) }
+                    ivSearch.setOnClickListener { viewModel.searchCity(etCity.text.toString()) }
+                    etCity.setOnEditorActionListener { _, actionId, _ ->
+                        if (actionId == EditorInfo.IME_ACTION_SEND) {
+                            viewModel.searchCity(etCity.text.toString())
+                            true
+                        } else {
+                            false
+                        }
+                    }
                     rvCity.adapter = searchListAdapter
 
                     with(viewModel) {
@@ -41,7 +50,7 @@ class SearchFragment : DaggerFragment() {
                                 searchListAdapter.submitList(it)
                                 handleVisibility(textView, rvCity, false)
                             } else {
-                                textView.text = "List is empty"
+                                textView.text = getString(R.string.empty_list)
                                 handleVisibility(textView, rvCity, true)
                             }
                         })

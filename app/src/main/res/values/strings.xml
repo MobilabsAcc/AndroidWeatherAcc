@@ -5,4 +5,6 @@
     <string name="weather_app" translatable="false">WEATHER APP</string>
     <string name="units_metric" translatable="false"><b>°C! /</b> °F</string>
     <string name="units_imperial" translatable="false">°C <b>/ °F!</b></string>
+    <string name="empty_list">List is empty</string>
+    <string name="city_name">City name</string>
 </resources>
