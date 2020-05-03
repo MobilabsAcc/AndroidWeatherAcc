@@ -37,7 +37,7 @@ data class Weather(
         @SerializedName("id") val id: Int,
         @SerializedName("main") val main: String,
         @SerializedName("description") val description: String,
-        @SerializedName("icon") val icon: String
+        @SerializedName("icon") val icon: WeatherIcon
 )
 
 data class Sys(
@@ -79,6 +79,62 @@ data class FindCityWeatherResponse(
 )
 
 enum class Units {
-        METRIC,
-        IMPERIAL
+    METRIC,
+    IMPERIAL
+}
+
+enum class WeatherIcon {
+    @SerializedName("01d")
+    CLEAR_SKY,
+
+    @SerializedName("02d")
+    FEW_CLOUDS,
+
+    @SerializedName("03d")
+    SCATTERED_CLOUDS,
+
+    @SerializedName("04d")
+    BROKEN_CLOUDS,
+
+    @SerializedName("09d")
+    SHOWER_RAIN,
+
+    @SerializedName("10d")
+    RAIN,
+
+    @SerializedName("11d")
+    THUNDERSTORM,
+
+    @SerializedName("13d")
+    SNOW,
+
+    @SerializedName("50d")
+    MIST,
+
+    @SerializedName("01n")
+    CLEAR_SKY_NIGHT,
+
+    @SerializedName("02n")
+    FEW_CLOUDS_NIGHT,
+
+    @SerializedName("03n")
+    SCATTERED_CLOUDS_NIGHT,
+
+    @SerializedName("04n")
+    BROKEN_CLOUDS_NIGHT,
+
+    @SerializedName("09n")
+    SHOWER_RAIN_NIGHT,
+
+    @SerializedName("10n")
+    RAIN_NIGHT,
+
+    @SerializedName("11n")
+    THUNDERSTORM_NIGHT,
+
+    @SerializedName("13n")
+    SNOW_NIGHT,
+
+    @SerializedName("50n")
+    MIST_NIGHT,
 }
